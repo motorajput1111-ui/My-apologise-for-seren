@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Seren 🤍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+background:radial-gradient(circle at top,#1b2735,#090a0f);
+color:#eaeaea;
+height:100vh;
+overflow:hidden;
+}
+
+.page{
+display:none;
+height:100vh;
+padding:30px;
+text-align:center;
+animation:fade 1.2s ease;
+overflow-y:auto;
+}
+
+.page.active{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+h1{font-size:28px;margin-bottom:15px}
+p{font-size:15px;max-width:720px;line-height:1.7;opacity:.9}
+
+.btn{
+margin-top:25px;
+padding:10px 30px;
+border-radius:25px;
+border:none;
+background:rgba(255,255,255,.15);
+color:#fff;
+cursor:pointer;
+}
+
+.btn:hover{background:rgba(255,255,255,.3)}
+
+.moon{
+width:90px;height:90px;border-radius:50%;
+background:#f5f3ce;
+box-shadow:0 0 20px #f5f3ce;
+margin:20px 0;
+cursor:pointer;
+}
+
+.secretHint{
+font-size:13px;
+opacity:.6;
+margin-top:15px;
+}
+
+.lyrics{
+white-space:pre-line;
+text-align:left;
+margin-top:20px;
+opacity:.95;
+}
+
+.watermark{
+position:fixed;
+bottom:10px;
+right:15px;
+font-size:12px;
+opacity:.4;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active">
+<div class="moon"></div>
+<h1>Seren…</h1>
+<p>
+Tumhari reply nahi aayi…  
+shayad maine kuch galat kar diya.  
+Agar maine tumhe hurt kiya, I’m really sorry.
+</p>
+<button class="btn" onclick="nextPage()">Next</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+<p>
+Silence bahut dard deta hai…  
+lekin tumhe khona usse bhi zyada.  
+Tumhara Babu, abhi bhi yahin hai.
+</p>
+<button class="btn" onclick="nextPage()">Next</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+<p>
+Ek message bhi kaafi hota hai  
+ye batane ke liye  
+ki sab theek hai.
+</p>
+<button class="btn" onclick="nextPage()">Next</button>
+</div>
+
+<!-- MUSIC PAGE -->
+<div class="page">
+<h1>🎵 Your Favourite Song</h1>
+<p>
+Seren, ye song tumhari yaad dilata hai.  
+Iske words wahi keh dete hain  
+jo main keh nahi paata.
+</p>
+
+<p style="margin-top:15px">
+<a href="https://youtu.be/hEhhepz_UcY?si=_Q9uqtt67oSlH__H"
+target="_blank"
+style="color:#f5f3ce;text-decoration:none">
+▶ Open song on YouTube
+</a>
+</p>
+
+<div class="moon" id="secretTrigger"></div>
+
+<p class="secretHint">
+Moon ko 3 baar tap karo 🤍  
+(secret page open hoga)
+</p>
+</div>
+
+<!-- SECRET LYRICS PAGE -->
+<div class="page" id="secretPage">
+<h1>🤍 Lyrics That Feel Like Us</h1>
+
+<div class="lyrics">
+Yo Najar Ma Najar Milai Mero Man Lai Bujana  
+Maya Ma Harau Hami Mayamai Ramauna  
+
+Maya Ta Garxu Timilai Tara Man Mero Darauxa  
+Xin Vhar Ko Khusi Bani Aa Shu Banera Janxa  
+Mana Runxa Chati Polxa Anek Kurale Satau Cha  
+
+Ho Timro Rupa Heri Heri Parexu Ma Danga  
+Tala Dekhi Mathi Samma Mileko Badana  
+
+Mero Pani Mannle Timlai Sacho Maya Garxa  
+Timi Saga Badhiyera Chumna Man Lagxa  
+Haasi Haasi Timi Sanga Khelna Man Lagxa  
+
+Khai Baira Jasto Dekhe Pani Vitra Testo Xaina  
+Mero Maya Timro Lagi Kami Hune Haina  
+Sajhayera Manna Vitra Timilai Ma Rakxu  
+Timiro Khusi Sangai Sangai Aafu Pani Hasxu  
+
+Yo Manna Le Khojyo Maya Timle Dina Sakxau
+</div>
+
+<p class="secretHint">
+Sirf tumhare liye 🤍
+</p>
+</div>
+
+<div class="watermark">— Babu</div>
+
+<!-- BACKGROUND MUSIC -->
+<iframe id="bgMusic"
+src="https://www.youtube.com/embed/hEhhepz_UcY?autoplay=1&loop=1&playlist=hEhhepz_UcY&mute=1"
+allow="autoplay"
+style="display:none">
+</iframe>
+
+<script>
+let pages=document.querySelectorAll('.page');
+let index=0;
+let taps=0;
+let musicStarted=false;
+
+function nextPage(){
+pages[index].classList.remove('active');
+index++;
+if(index<pages.length){
+pages[index].classList.add('active');
+}
+}
+
+// secret page
+document.getElementById('secretTrigger').addEventListener('click',()=>{
+taps++;
+if(taps===3){
+pages[index].classList.remove('active');
+document.getElementById('secretPage').classList.add('active');
+}
+});
+
+// background music (first tap)
+document.body.addEventListener('click',()=>{
+if(!musicStarted){
+let iframe=document.getElementById("bgMusic");
+iframe.src=iframe.src.replace("&mute=1","");
+musicStarted=true;
+}
+});
+</script>
+
+</body>
+</html>
